@@ -3,9 +3,9 @@ name: Backup to remote
 on:
   push:
     branches:
-      - main # Replace with the main branch of your repository
+      - main # Замените на главную ветку вашего репозитория
   schedule:
-    - cron: '0 0 * * *' # Daily at midnight (UTC)
+    - cron: '0 0 * * *' # Ежедневно в полночь (UTC)
 
 jobs:
   sync-repo:
@@ -15,8 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch all branches
-          token: ${{ secrets.ZERO }}
+          fetch-depth: 0  # Получить все ветки
 
       - name: Set up Git
         run: |
@@ -27,7 +26,7 @@ jobs:
       - name: Add backup remote
         run: |
           echo "Adding remote backup repository"
-          git remote add backup https://${{ secrets.back_rem }}@github.com/7eromy/backup-repo.git
+          git remote add backup https://${{ secrets.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 }}@github.com/7eromy/backup-repo.git
           git remote -v
           
       - name: Push to backup repository
