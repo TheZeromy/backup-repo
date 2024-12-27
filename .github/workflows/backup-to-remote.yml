@@ -5,7 +5,7 @@ on:
     branches:
       - main # Замените на главную ветку вашего репозитория
   schedule:
-    - cron: '0 0 * * *' # Ежедневно в полночь (UTC)
+    - cron: '0 21 * * *' # Ежедневно в полночь (UTC)
 
 jobs:
   sync-repo:
@@ -26,7 +26,7 @@ jobs:
       - name: Add backup remote
         run: |
           echo "Adding remote backup repository"
-          git remote add backup https://${{ secrets.repo-all-acc }}@github.com/7eromy/backup-repo.git
+          git remote add backup https://${{ secrets.ZERO_REM }}@github.com/7eromy/backup-repo.git
           git remote -v
           
       - name: Create backup branch name
