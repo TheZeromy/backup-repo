@@ -30,16 +30,16 @@ jobs:
           git remote add backup https://${{ secrets.ZERO }}@github.com/TheZeromy/backup-repo.git
           git remote -v
           
-      - name: Pull changes from backup repository
+      - name: Create backup branch name
+        id: date
         run: |
-          echo "Pulling changes from backup repository"
-          git pull backup main --rebase || echo "No changes to pull"
-      
-      - name: Check PAT permissions
+          echo "Creating backup branch name"
+          BACKUP_BRANCH="backup-$(date +'%Y-%m-%d')"
+          echo "Backup branch name: $BACKUP_BRANCH"
+          echo "::set-output name=backup_branch::$BACKUP_BRANCH"
+          
+      - name: Create and push to backup branch
         run: |
-          echo "Checking PAT permissions"
-          curl -H "Authorization: token ${{ secrets.ZERO }}" https://api.github.com/user/repos
-      - name: Push to backup repository
-        run: |
-          echo "Pushing to remote repository"
-          git push backup main --force
+          echo "Creating and pushing to backup branch"
+          git checkout -b ${{ steps.date.outputs.backup_branch }}
+          git push backup ${{ steps.date.outputs.backup_branch }} --force
